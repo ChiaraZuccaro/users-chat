@@ -4,6 +4,10 @@ input {
     }
 }
 
+input[type="password"]::-webkit-password-toggle-button {
+    display: none !important;
+}
+
 .form-custom {
     .label {
         display: flex;
@@ -36,8 +40,12 @@ input {
         padding: .5rem 1rem;
     }
 
-    input[type="password"]::-webkit-password-toggle-button {
-        display: none !important;
+
+    &.error {
+        color: get-color('error', 'err500');
+        .input-custom {
+            border-color: get-color('error', 'err500');
+        }
     }
 }
 
