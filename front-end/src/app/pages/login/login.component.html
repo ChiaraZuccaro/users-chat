@@ -1,7 +1,7 @@
 <div class="container">
     <div class="logo"></div>
     <div class="form-login mt-5">
-        <form [class.error]="!loginUser.form.valid && loginUser.submitted" class="form-custom d-flex flex-column gap-2" #loginUser="ngForm" (submit)="sendExistingUserInfo(loginUser)">
+        <form class="form-custom d-flex flex-column gap-2" (submit)="sendExistingUserInfo()">
             <label class="label">
                 <span>Email</span>
                 <input required ngModel class="input-custom" type="email" name="username" id="username" 

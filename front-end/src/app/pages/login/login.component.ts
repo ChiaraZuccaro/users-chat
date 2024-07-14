@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'login',
@@ -14,11 +13,7 @@ export class LoginComponent {
     private _authService: AuthService
   ) {}
 
-  public sendExistingUserInfo(userInfo: NgForm) {
-    if(userInfo.form.valid) {
-      console.log('dati inviati', userInfo.form.value);
-      this._authService.createUser(userInfo.form.value);
-    }
+  public sendExistingUserInfo() {
   }
 
   public toggleInputType() {

@@ -6,21 +6,21 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
   public url = "http://localhost:3000/users";
-  public headers = new HttpHeaders({
-    'Content-type': 'application/json'
-  });
+  // public headers = new HttpHeaders({
+  //   'Content-type': 'application/json'
+  // });
 
   constructor(
-    private _http: HttpClient
+    // private _http: HttpClient
   ) { }
 
-  createUserEntityOnDB() {}
+  // createUserEntityOnDB() {}
 
-  public getUser() {
-    return this._http.get(this.url, { headers: this.headers });
-  }
+  // public getUser() {
+  //   return this._http.get(this.url, { headers: this.headers });
+  // }
 
-  public createUser(userInfo: any) {
-    return this._http.post(this.url, userInfo, { headers: this.headers });
-  }
+  // public createUser(userInfo: any) {
+  //   return this._http.post(this.url, userInfo, { headers: this.headers });
+  // }
 }
