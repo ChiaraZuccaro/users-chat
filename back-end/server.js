@@ -1,6 +1,14 @@
+require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://chiaras:j7VCJn8M9ZmDLyVf@users.5nx4cxl.mongodb.net/?retryWrites=true&w=majority&appName=users";
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+
+const password = process.env.PASSWORD_DB;
+const app = express();
+const port = 3000;
+
+const uri = `mongodb+srv://chiaras:${password}@users.5nx4cxl.mongodb.net/?retryWrites=true&w=majority&appName=users`;
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -8,54 +16,47 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   }
 });
+
+app.use(bodyParser.json());
+app.use(cors());
+
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+    const db = client.db('users_db'); // Assicurati di usare il nome del tuo database
+    const usersCollection = db.collection('users'); // Assicurati di usare il nome della tua collezione
+
+    // Endpoint per ottenere tutti gli utenti
+    app.get('/users', async (req, res) => {
+      try {
+        const users = await usersCollection.find().toArray();
+        res.json(users);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to fetch users' });
+      }
+    });
+
+    // Endpoint per aggiungere un nuovo utente
+    app.post('/users', async (req, res) => {
+      try {
+        const newUser = req.body;
+        const result = await usersCollection.insertOne(newUser);
+        res.json(result.ops[0]);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to add user' });
+      }
+    });
+
+    app.listen(port, () => {
+      console.log(`Server running on http://localhost:${port}`);
+    });
+
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
+  } catch (err) {
+    console.error(err);
   }
 }
+
 run().catch(console.dir);
-
-// Chat GPT
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const cors = require('cors');
-// const { MongoClient } = require('mongodb');
-
-// const app = express();
-// const port = 3000;
-// const uri = "mongodb+srv://<username>:<password>@cluster0.mongodb.net/<dbname>?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// app.use(bodyParser.json());
-// app.use(cors());
-
-// client.connect(err => {
-//     if (err) {
-//         console.error('Error connecting to MongoDB', err);
-//         process.exit(1);
-//     }
-//     const db = client.db('<dbname>');
-//     const usersCollection = db.collection('users');
-
-//     app.get('/users', async (req, res) => {
-//         const users = await usersCollection.find().toArray();
-//         res.json(users);
-//     });
-
-//     app.post('/users', async (req, res) => {
-//         const newUser = req.body;
-//         await usersCollection.insertOne(newUser);
-//         res.json(newUser);
-//     });
-
-//     app.listen(port, () => {
-//         console.log(`Server running on http://localhost:${port}`);
-//     });
-// });
