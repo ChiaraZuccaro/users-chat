@@ -1,7 +1,20 @@
-<h1>Test h1</h1>
-<h2>Test h2</h2>
-<h3>Test h3 </h3>
-<h4>Test h4</h4>
-<h5>Test h5</h5>
-<h6>Test h6</h6>
-<p>Test paragraph</p>
+<div class="container">
+    <div class="logo"></div>
+    <div class="form-login mt-5">
+        <form class="form-custom d-flex flex-column gap-2" action="" method="post">
+            <label class="label">
+                <span>Email</span>
+                <input class="input-custom" type="email" name="email" id="email" placeholder="type email ...">
+            </label>
+            <label class="label">
+                <span>Password</span>
+                <div class="input-custom input-custom__password">
+                    <input [type]="isPasswordVisible ? 'text' : 'password'" name="password" id="password" placeholder="type password ...">
+                    <i (click)="toggleInputType()" class="{{ isPasswordVisible ? 'eye-blocked' : 'eye'}}-icon d-inline-block align-middle ps-2"></i>
+                </div>
+                <!-- <i class="eye-blocked-icon"></i> -->
+            </label>
+            <input class="submit align-self-center mt-4" type="submit" value="Send">
+        </form>
+    </div>
+</div>

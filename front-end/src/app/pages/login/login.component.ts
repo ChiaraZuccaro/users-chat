@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  public isPasswordVisible: boolean;
 
+  public toggleInputType() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
 }

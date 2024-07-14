@@ -2,8 +2,6 @@
     @return map-get(map-get($color-scheme, $scheme), $tone);
 }
 
-$brand-color: #977005;
-
 $color-scheme: (
     warning: (
         warn50: #fffdf0,
@@ -25,5 +23,9 @@ $color-scheme: (
         succ300: #84cdaf,
         succ500: #48b488,
         succ700: #338061
+    ),
+    brand: (
+        primary: #977005,
+        secondary: #977005
     )
 );
