@@ -1,0 +1,29 @@
+@function get-color($scheme, $tone: base) {
+    @return map-get(map-get($color-scheme, $scheme), $tone);
+}
+
+$brand-color: #977005;
+
+$color-scheme: (
+    warning: (
+        warn50: #fffdf0,
+        warn100: #fffad2,
+        warn300: #fef49d,
+        warn500: #feef6d,
+        warn700: #b4aa4d
+    ),
+    error: (
+        err50: #fbeeee,
+        err100: #f3caca,
+        err300: #e58c8c,
+        err500: #d85353,
+        err700: #993b3b
+    ),
+    success: (
+        succ50: #edf8f3,
+        succ100: #c6e8da,
+        succ300: #84cdaf,
+        succ500: #48b488,
+        succ700: #338061
+    )
+);
